@@ -1,390 +1,1326 @@
 <!DOCTYPE html>
 <html lang="it">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Il mio collega è un gufo — TEDx Talk di Giobi Fasoli</title>
-  <meta name="description" content="Talk TEDx: Come ho dato personalità, memoria e sarcasmo alla mia AI. Anacleto, l'agente AI personale di Giobi Fasoli.">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Il mio collega è un gufo — Proposta Talk TEDx Verbania</title>
+  <meta name="description" content="Speaker proposal di Giobi Fasoli per TEDx Verbania: Anacleto, l'agente AI personale con personalità vera." />
+  <meta name="robots" content="noindex, nofollow" />
 
-  <!-- Fonts: JetBrains Mono (headings) + Nunito (body) -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@500;700&family=Nunito:wght@400;600&display=swap">
+  <!-- Fonts: Inter (sans) + Lora (serif accent) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Lora:ital,wght@0,400;0,600;1,400;1,600&display=swap" rel="stylesheet" />
 
   <style>
-    /* === VARIANT 1: Terminal Editorial ===
-       Palette: Near-black bg, warm-white text, gold accent
-       Fonts:   JetBrains Mono headings + Nunito body
-       Layout:  Centered column, editorial feel, terminal cues
-    */
-
+    /* ============================================================
+       DESIGN TOKENS — Warm dark editorial
+    ============================================================ */
     :root {
-      --color-bg:           #0c0c0c;
-      --color-surface:      #141414;
-      --color-border:       #242424;
-      --color-text:         #e8e8e8;
-      --color-muted:        #787878;
-      --color-accent:       #ffd700;
-      --color-accent-dim:   rgba(255, 215, 0, 0.10);
-      --font-heading:       'JetBrains Mono', monospace;
-      --font-body:          'Nunito', system-ui, sans-serif;
-      --max-w:              740px;
+      --bg:          #1a1714;
+      --bg-surface:  #221f1b;
+      --bg-card:     #2a2520;
+      --border:      #3d3630;
+      --border-soft: #2e2924;
+
+      --amber:       #d4891a;
+      --amber-light: #e8a23a;
+      --amber-dim:   #9a6010;
+      --amber-glow:  rgba(212, 137, 26, 0.12);
+
+      --text-primary:   #f0ebe3;
+      --text-secondary: #c4b8a8;
+      --text-muted:     #7d7268;
+      --text-accent:    #d4891a;
+
+      --red-ted:     #e62b1e;
+
+      /* Typography scale */
+      --font-sans:   'Inter', system-ui, -apple-system, sans-serif;
+      --font-serif:  'Lora', Georgia, 'Times New Roman', serif;
+
+      /* Spacing */
+      --section-gap: 7rem;
+      --content-max: 780px;
+      --wide-max:    1040px;
     }
 
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    html { scroll-behavior: smooth; }
+    /* ============================================================
+       RESET & BASE
+    ============================================================ */
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      font-size: 16px;
+    }
 
     body {
-      background: var(--color-bg);
-      color: var(--color-text);
-      font-family: var(--font-body);
-      font-size: 1.05rem;
-      line-height: 1.78;
+      background-color: var(--bg);
+      color: var(--text-primary);
+      font-family: var(--font-sans);
+      font-weight: 400;
+      line-height: 1.7;
       -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      overflow-x: hidden;
     }
 
-    /* scanline texture */
-    body::before {
-      content: '';
-      position: fixed;
-      inset: 0;
-      background: repeating-linear-gradient(
-        0deg, transparent, transparent 3px,
-        rgba(0,0,0,0.04) 3px, rgba(0,0,0,0.04) 4px
-      );
-      pointer-events: none;
-      z-index: 1000;
-    }
-
-    /* === NAV === */
-    nav {
-      position: sticky; top: 0; z-index: 100;
-      background: rgba(12,12,12,0.94);
-      backdrop-filter: blur(16px);
-      border-bottom: 1px solid var(--color-border);
-      padding: 0.9rem 2rem;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-
-    .nav-brand {
-      font-family: var(--font-heading);
-      font-size: 0.72rem;
-      color: var(--color-accent);
-      letter-spacing: 0.08em;
-      text-decoration: none;
-    }
-
-    .nav-pill {
-      font-family: var(--font-heading);
-      font-size: 0.62rem;
-      color: var(--color-muted);
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      border: 1px solid var(--color-border);
-      padding: 0.25rem 0.6rem;
-      border-radius: 2px;
-    }
-
-    /* === CONTAINER === */
-    .wrap {
-      max-width: var(--max-w);
+    /* ============================================================
+       LAYOUT UTILITIES
+    ============================================================ */
+    .container {
+      max-width: var(--content-max);
       margin: 0 auto;
-      padding: 0 1.5rem;
+      padding: 0 2rem;
     }
 
-    /* === HERO === */
-    header {
-      padding: 7rem 0 4.5rem;
-      border-bottom: 1px solid var(--color-border);
+    .container--wide {
+      max-width: var(--wide-max);
+      margin: 0 auto;
+      padding: 0 2rem;
     }
 
-    .eyebrow {
-      font-family: var(--font-heading);
-      font-size: 0.68rem;
-      color: var(--color-accent);
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
-      margin-bottom: 1.5rem;
+    /* ============================================================
+       FADE-IN ON SCROLL — Progressive reveal
+    ============================================================ */
+    .reveal {
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .reveal-delay-1 { transition-delay: 0.1s; }
+    .reveal-delay-2 { transition-delay: 0.2s; }
+    .reveal-delay-3 { transition-delay: 0.3s; }
+    .reveal-delay-4 { transition-delay: 0.4s; }
+
+    /* ============================================================
+       TOP BAR — minimal badge
+    ============================================================ */
+    .top-bar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
       display: flex;
       align-items: center;
-      gap: 0.5rem;
-    }
-    .eyebrow::before { content: '>_'; opacity: 0.5; }
-
-    h1 {
-      font-family: var(--font-heading);
-      font-size: clamp(2.4rem, 5.5vw, 4rem);
-      font-weight: 700;
-      line-height: 1.12;
-      letter-spacing: -0.025em;
-      margin-bottom: 1.5rem;
-    }
-    h1 .gold { color: var(--color-accent); }
-
-    .cursor {
-      display: inline-block;
-      width: 0.5em; height: 0.9em;
-      background: var(--color-accent);
-      vertical-align: text-bottom;
-      margin-left: 0.1em;
-      animation: blink 1.1s step-end infinite;
-    }
-    @keyframes blink { 0%,100% { opacity:1; } 50% { opacity:0; } }
-
-    .hero-sub {
-      font-size: 1.05rem;
-      color: var(--color-muted);
-      max-width: 500px;
-      line-height: 1.6;
-      margin-bottom: 2rem;
+      justify-content: space-between;
+      padding: 1rem 2rem;
+      background: rgba(26, 23, 20, 0.85);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(61, 54, 48, 0.4);
     }
 
-    .hero-badges {
+    .top-bar__badge {
       display: flex;
       align-items: center;
-      gap: 0.75rem;
-      flex-wrap: wrap;
-    }
-
-    .badge-speaker {
-      font-family: var(--font-heading);
-      font-size: 0.78rem;
-      background: var(--color-surface);
-      border: 1px solid var(--color-border);
-      border-left: 3px solid var(--color-accent);
-      padding: 0.5rem 1rem;
-      color: var(--color-text);
-    }
-
-    .badge-tedx {
-      font-family: var(--font-heading);
-      font-size: 0.7rem;
-      font-weight: 700;
-      background: #e62b1e;
-      color: white;
-      padding: 0.4rem 0.8rem;
-      letter-spacing: 0.06em;
-    }
-
-    /* === SECTIONS === */
-    section { padding: 4rem 0; border-bottom: 1px solid var(--color-border); }
-
-    .sec-label {
-      font-family: var(--font-heading);
-      font-size: 0.62rem;
-      color: var(--color-accent);
-      letter-spacing: 0.16em;
-      text-transform: uppercase;
-      margin-bottom: 1.5rem;
-      display: flex;
-      align-items: center;
-      gap: 0.75rem;
-    }
-    .sec-label::after { content: ''; flex: 1; height: 1px; background: var(--color-border); }
-
-    h2 {
-      font-family: var(--font-heading);
-      font-size: clamp(1.25rem, 3vw, 1.7rem);
-      font-weight: 700;
-      line-height: 1.3;
-      margin-bottom: 1rem;
-    }
-
-    p { color: var(--color-muted); margin-bottom: 1rem; }
-    p:last-child { margin-bottom: 0; }
-    p strong { color: var(--color-text); font-weight: 600; }
-
-    /* === TALK POINTS === */
-    .points {
-      list-style: none;
-      display: flex;
-      flex-direction: column;
       gap: 0.6rem;
-      margin-top: 1.5rem;
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--text-muted);
     }
 
-    .points li {
-      display: flex;
-      align-items: flex-start;
-      gap: 0.75rem;
-      background: var(--color-surface);
-      border: 1px solid var(--color-border);
-      padding: 0.85rem 1.1rem;
-      font-size: 0.95rem;
-      color: var(--color-text);
-      transition: border-color 0.18s;
-    }
-    .points li:hover { border-color: var(--color-accent); }
-    .points li::before {
-      content: '→';
-      font-family: var(--font-heading);
-      color: var(--color-accent);
+    .top-bar__dot {
+      width: 8px;
+      height: 8px;
+      background: var(--red-ted);
+      border-radius: 50%;
       flex-shrink: 0;
     }
 
-    /* === BIO === */
-    .bio-card {
-      background: var(--color-surface);
-      border: 1px solid var(--color-border);
-      border-left: 3px solid var(--color-accent);
-      padding: 1.75rem;
+    .top-bar__cta {
+      font-size: 0.8rem;
+      font-weight: 500;
+      color: var(--amber);
+      text-decoration: none;
+      border: 1px solid var(--amber-dim);
+      padding: 0.35rem 0.85rem;
+      border-radius: 4px;
+      transition: background 0.2s, color 0.2s;
     }
 
-    /* === CONTACT === */
-    .contact-row {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
+    .top-bar__cta:hover {
+      background: var(--amber-glow);
+      color: var(--amber-light);
+    }
+
+    /* ============================================================
+       HERO SECTION
+    ============================================================ */
+    .hero {
+      min-height: 100svh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 10rem 2rem 6rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Subtle texture overlay */
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 60% 50% at 70% 50%, rgba(212, 137, 26, 0.06) 0%, transparent 70%),
+        radial-gradient(ellipse 40% 60% at 20% 80%, rgba(230, 43, 30, 0.04) 0%, transparent 60%);
+      pointer-events: none;
+    }
+
+    .hero__inner {
+      max-width: var(--content-max);
+      margin: 0 auto;
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero__eyebrow {
+      display: inline-flex;
+      align-items: center;
       gap: 0.75rem;
-      margin-top: 1.5rem;
+      margin-bottom: 2rem;
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--text-muted);
     }
-    @media (max-width: 500px) { .contact-row { grid-template-columns: 1fr; } }
 
-    .contact-link {
+    .hero__eyebrow-line {
+      width: 32px;
+      height: 1px;
+      background: var(--amber-dim);
+    }
+
+    .hero__title {
+      font-family: var(--font-sans);
+      font-size: clamp(2.8rem, 7vw, 5.5rem);
+      font-weight: 800;
+      line-height: 1.05;
+      letter-spacing: -0.03em;
+      color: var(--text-primary);
+      margin-bottom: 1.5rem;
+    }
+
+    .hero__title em {
+      font-style: normal;
+      color: var(--amber);
+    }
+
+    .hero__subtitle {
+      font-family: var(--font-serif);
+      font-size: clamp(1.1rem, 2.5vw, 1.35rem);
+      font-weight: 400;
+      font-style: italic;
+      color: var(--text-secondary);
+      margin-bottom: 3rem;
+      max-width: 560px;
+    }
+
+    .hero__meta {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+      flex-wrap: wrap;
+    }
+
+    .hero__meta-item {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.8rem;
+      font-weight: 500;
+      letter-spacing: 0.06em;
+      color: var(--text-muted);
+    }
+
+    .hero__meta-dot {
+      width: 4px;
+      height: 4px;
+      background: var(--amber-dim);
+      border-radius: 50%;
+    }
+
+    .hero__ted-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: rgba(230, 43, 30, 0.12);
+      border: 1px solid rgba(230, 43, 30, 0.3);
+      border-radius: 4px;
+      padding: 0.3rem 0.75rem;
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: #e8564d;
+    }
+
+    .hero__scroll-hint {
+      position: absolute;
+      bottom: 3rem;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.65rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      opacity: 0.6;
+      animation: gentle-bounce 2.5s ease-in-out infinite;
+    }
+
+    .hero__scroll-line {
+      width: 1px;
+      height: 32px;
+      background: linear-gradient(to bottom, var(--amber-dim), transparent);
+    }
+
+    @keyframes gentle-bounce {
+      0%, 100% { transform: translateX(-50%) translateY(0); }
+      50% { transform: translateX(-50%) translateY(6px); }
+    }
+
+    /* ============================================================
+       DIVIDER
+    ============================================================ */
+    .section-divider {
+      width: 100%;
+      height: 1px;
+      background: linear-gradient(to right, transparent, var(--border), transparent);
+      margin: 0;
+    }
+
+    /* ============================================================
+       SECTION — Shared structure
+    ============================================================ */
+    .section {
+      padding: var(--section-gap) 0;
+    }
+
+    .section + .section {
+      border-top: 1px solid var(--border-soft);
+    }
+
+    .section__label {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+      font-size: 0.65rem;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--amber);
+      margin-bottom: 2rem;
+    }
+
+    .section__label::before {
+      content: '';
+      display: block;
+      width: 24px;
+      height: 2px;
+      background: var(--amber);
+      border-radius: 2px;
+    }
+
+    .section__heading {
+      font-family: var(--font-sans);
+      font-size: clamp(1.6rem, 3.5vw, 2.4rem);
+      font-weight: 700;
+      line-height: 1.2;
+      letter-spacing: -0.025em;
+      color: var(--text-primary);
+      margin-bottom: 2rem;
+    }
+
+    .section__heading em {
+      font-style: italic;
+      font-family: var(--font-serif);
+      color: var(--amber);
+    }
+
+    .section__body {
+      font-size: 1.05rem;
+      line-height: 1.8;
+      color: var(--text-secondary);
+    }
+
+    .section__body p + p {
+      margin-top: 1.25rem;
+    }
+
+    .section__body strong {
+      color: var(--text-primary);
+      font-weight: 600;
+    }
+
+    /* ============================================================
+       SECTION: L'IDEA IN 30 SECONDI
+    ============================================================ */
+    .idea-block {
+      background: var(--bg-surface);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 2.5rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .idea-block::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 3px;
+      height: 100%;
+      background: linear-gradient(to bottom, var(--amber), var(--amber-dim));
+    }
+
+    .idea-block__quote {
+      font-family: var(--font-serif);
+      font-size: clamp(1.15rem, 2.5vw, 1.4rem);
+      font-style: italic;
+      line-height: 1.65;
+      color: var(--text-primary);
+      margin-bottom: 2rem;
+    }
+
+    .idea-block__body {
+      font-size: 1rem;
+      line-height: 1.8;
+      color: var(--text-secondary);
+    }
+
+    .idea-block__body p + p {
+      margin-top: 1rem;
+    }
+
+    .idea-block__body strong {
+      color: var(--amber-light);
+      font-weight: 600;
+    }
+
+    /* ============================================================
+       SECTION: PERCHE QUESTA TALK — Reasons list
+    ============================================================ */
+    .reasons-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 1.25rem;
+      margin-top: 2.5rem;
+    }
+
+    .reason-item {
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 1.25rem;
+      align-items: start;
+      padding: 1.5rem;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      transition: border-color 0.25s, background 0.25s;
+    }
+
+    .reason-item:hover {
+      border-color: var(--amber-dim);
+      background: rgba(42, 37, 32, 0.9);
+    }
+
+    .reason-item__icon {
+      width: 36px;
+      height: 36px;
+      background: var(--amber-glow);
+      border: 1px solid var(--amber-dim);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: var(--amber);
+      font-family: var(--font-serif);
+    }
+
+    .reason-item__content {}
+
+    .reason-item__title {
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: var(--text-primary);
+      margin-bottom: 0.35rem;
+      letter-spacing: -0.01em;
+    }
+
+    .reason-item__desc {
+      font-size: 0.9rem;
+      line-height: 1.65;
+      color: var(--text-secondary);
+    }
+
+    /* ============================================================
+       SECTION: STRUTTURA TALK — Acts timeline
+    ============================================================ */
+    .acts-container {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+      margin-top: 2.5rem;
+      position: relative;
+    }
+
+    /* Vertical connector line */
+    .acts-container::before {
+      content: '';
+      position: absolute;
+      left: 28px;
+      top: 40px;
+      bottom: 40px;
+      width: 1px;
+      background: linear-gradient(to bottom, var(--amber-dim), var(--border), var(--amber-dim));
+    }
+
+    .act-item {
+      display: grid;
+      grid-template-columns: 56px 1fr;
+      gap: 1.5rem;
+      align-items: start;
+      padding-bottom: 2.5rem;
+      position: relative;
+    }
+
+    .act-item:last-child {
+      padding-bottom: 0;
+    }
+
+    .act-item__number {
+      width: 56px;
+      height: 56px;
+      background: var(--bg-card);
+      border: 2px solid var(--amber-dim);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      position: relative;
+      z-index: 1;
+      transition: border-color 0.25s, background 0.25s;
+    }
+
+    .act-item:hover .act-item__number {
+      border-color: var(--amber);
+      background: var(--amber-glow);
+    }
+
+    .act-item__num-text {
+      font-size: 0.65rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      color: var(--amber);
+      text-transform: uppercase;
+      text-align: center;
+      line-height: 1.2;
+    }
+
+    .act-item__content {
+      padding-top: 0.65rem;
+    }
+
+    .act-item__header {
       display: flex;
       align-items: center;
       gap: 0.75rem;
-      background: var(--color-surface);
-      border: 1px solid var(--color-border);
-      padding: 0.9rem 1.1rem;
-      font-family: var(--font-heading);
-      font-size: 0.8rem;
-      color: var(--color-text);
-      text-decoration: none;
-      transition: border-color 0.18s, background 0.18s;
+      margin-bottom: 0.75rem;
+      flex-wrap: wrap;
     }
-    .contact-link:hover {
-      border-color: var(--color-accent);
-      background: var(--color-accent-dim);
-      color: var(--color-accent);
-    }
-    .contact-link .icon { color: var(--color-accent); font-size: 1.1rem; }
 
-    /* === FOOTER === */
-    footer {
-      padding: 4.5rem 0;
-      text-align: center;
+    .act-item__title {
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--text-primary);
+      letter-spacing: -0.01em;
+    }
+
+    .act-item__duration {
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      color: var(--amber);
+      background: var(--amber-glow);
+      border: 1px solid var(--amber-dim);
+      padding: 0.15rem 0.5rem;
+      border-radius: 20px;
+      white-space: nowrap;
+    }
+
+    .act-item__tagline {
+      font-family: var(--font-serif);
+      font-style: italic;
+      font-size: 0.9rem;
+      color: var(--amber-light);
+      margin-bottom: 0.75rem;
+      opacity: 0.85;
+    }
+
+    .act-item__desc {
+      font-size: 0.9rem;
+      line-height: 1.7;
+      color: var(--text-secondary);
+    }
+
+    /* ============================================================
+       SECTION: CHI SONO — Speaker card
+    ============================================================ */
+    .speaker-card {
+      background: var(--bg-surface);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 2.5rem;
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 2rem;
+      align-items: start;
+    }
+
+    .speaker-card__avatar {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--amber-dim), #5a3a0a);
+      border: 2px solid var(--amber-dim);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2rem;
+      flex-shrink: 0;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .speaker-card__avatar-initials {
+      font-family: var(--font-sans);
+      font-weight: 700;
+      font-size: 1.4rem;
+      color: var(--amber-light);
+      letter-spacing: -0.02em;
+    }
+
+    .speaker-card__name {
+      font-size: 1.4rem;
+      font-weight: 700;
+      letter-spacing: -0.025em;
+      color: var(--text-primary);
+      margin-bottom: 0.25rem;
+    }
+
+    .speaker-card__role {
+      font-size: 0.8rem;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--amber);
+      margin-bottom: 1.25rem;
+    }
+
+    .speaker-card__bio {
+      font-size: 0.975rem;
+      line-height: 1.75;
+      color: var(--text-secondary);
+    }
+
+    .speaker-card__bio p + p {
+      margin-top: 0.9rem;
+    }
+
+    .speaker-card__bio strong {
+      color: var(--text-primary);
+      font-weight: 600;
+    }
+
+    .speaker-card__link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      margin-top: 1.25rem;
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--amber);
+      text-decoration: none;
+      letter-spacing: 0.02em;
+      border-bottom: 1px solid var(--amber-dim);
+      padding-bottom: 1px;
+      transition: color 0.2s, border-color 0.2s;
+    }
+
+    .speaker-card__link:hover {
+      color: var(--amber-light);
+      border-color: var(--amber-light);
+    }
+
+    .speaker-card__link svg {
+      width: 12px;
+      height: 12px;
+    }
+
+    /* ============================================================
+       SECTION: FORMATO — Technical specs table
+    ============================================================ */
+    .specs-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1px;
+      background: var(--border);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      overflow: hidden;
+      margin-top: 2.5rem;
+    }
+
+    .spec-item {
+      background: var(--bg-surface);
+      padding: 1.25rem 1.5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.25rem;
+    }
+
+    .spec-item__label {
+      font-size: 0.65rem;
+      font-weight: 600;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+    }
+
+    .spec-item__value {
+      font-size: 0.9rem;
+      font-weight: 500;
+      color: var(--text-primary);
+      line-height: 1.4;
+    }
+
+    /* ============================================================
+       FOOTER — Quote + CTA
+    ============================================================ */
+    .site-footer {
+      padding: 5rem 0 4rem;
+      border-top: 1px solid var(--border-soft);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .site-footer::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse 50% 80% at 50% 100%, rgba(212, 137, 26, 0.05) 0%, transparent 70%);
+      pointer-events: none;
     }
 
     .footer-quote {
-      font-family: var(--font-heading);
-      font-size: clamp(0.82rem, 1.8vw, 1rem);
-      color: var(--color-muted);
-      line-height: 1.65;
-      max-width: 580px;
-      margin: 0 auto 1.5rem;
+      max-width: var(--content-max);
+      margin: 0 auto;
+      padding: 0 2rem;
+      text-align: center;
+      position: relative;
+      z-index: 1;
     }
-    .footer-quote em { color: var(--color-accent); font-style: normal; }
+
+    .footer-quote__mark {
+      font-family: var(--font-serif);
+      font-size: 5rem;
+      line-height: 0.6;
+      color: var(--amber-dim);
+      margin-bottom: 1.5rem;
+      display: block;
+      opacity: 0.5;
+    }
+
+    .footer-quote__text {
+      font-family: var(--font-serif);
+      font-size: clamp(1rem, 2.2vw, 1.3rem);
+      font-style: italic;
+      line-height: 1.65;
+      color: var(--text-secondary);
+      margin-bottom: 3rem;
+      max-width: 620px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .footer-quote__text em {
+      color: var(--amber-light);
+      font-style: normal;
+    }
+
+    .footer-cta-group {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 1rem;
+      flex-wrap: wrap;
+      margin-bottom: 3rem;
+    }
+
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: var(--amber);
+      color: #1a1714;
+      font-family: var(--font-sans);
+      font-size: 0.85rem;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      text-decoration: none;
+      padding: 0.8rem 1.75rem;
+      border-radius: 4px;
+      transition: background 0.2s, transform 0.15s;
+    }
+
+    .btn-primary:hover {
+      background: var(--amber-light);
+      transform: translateY(-1px);
+    }
+
+    .btn-secondary {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: transparent;
+      color: var(--text-secondary);
+      font-family: var(--font-sans);
+      font-size: 0.85rem;
+      font-weight: 500;
+      text-decoration: none;
+      padding: 0.8rem 1.5rem;
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      transition: border-color 0.2s, color 0.2s;
+    }
+
+    .btn-secondary:hover {
+      border-color: var(--amber-dim);
+      color: var(--text-primary);
+    }
 
     .footer-meta {
-      font-family: var(--font-heading);
-      font-size: 0.62rem;
-      color: #3a3a3a;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
+      text-align: center;
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      letter-spacing: 0.06em;
+    }
+
+    .footer-meta a {
+      color: var(--text-muted);
+      text-decoration: none;
+    }
+
+    .footer-meta a:hover {
+      color: var(--amber);
+    }
+
+    .footer-meta__sep {
+      display: inline-block;
+      margin: 0 0.5rem;
+      opacity: 0.4;
+    }
+
+    /* Referral note */
+    .referral-note {
+      margin-top: 1.5rem;
+      font-size: 0.72rem;
+      color: var(--text-muted);
+      letter-spacing: 0.04em;
+    }
+
+    /* ============================================================
+       RESPONSIVE
+    ============================================================ */
+    @media (max-width: 640px) {
+      :root {
+        --section-gap: 4.5rem;
+      }
+
+      .top-bar {
+        padding: 0.85rem 1.25rem;
+      }
+
+      .hero {
+        padding: 9rem 1.25rem 5rem;
+      }
+
+      .container,
+      .container--wide {
+        padding: 0 1.25rem;
+      }
+
+      .speaker-card {
+        grid-template-columns: 1fr;
+        gap: 1.25rem;
+      }
+
+      .speaker-card__avatar {
+        width: 64px;
+        height: 64px;
+      }
+
+      .specs-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .acts-container::before {
+        display: none;
+      }
+
+      .act-item {
+        grid-template-columns: 1fr;
+        gap: 0.75rem;
+      }
+
+      .act-item__number {
+        width: 44px;
+        height: 44px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .hero__title {
+        font-size: 2.2rem;
+      }
+
+      .idea-block {
+        padding: 1.75rem 1.25rem;
+      }
     }
   </style>
 </head>
+
 <body>
 
-<nav>
-  <a href="#" class="nav-brand">anacleto.giobi.com</a>
-  <span class="nav-pill">TEDx Talk Proposal</span>
-</nav>
+  <!-- TOP BAR -->
+  <header class="top-bar">
+    <span class="top-bar__badge">
+      <span class="top-bar__dot"></span>
+      TEDx Verbania &mdash; Speaker Proposal
+    </span>
+    <a href="mailto:anacleto@giobi.com" class="top-bar__cta">Contatto</a>
+  </header>
 
-<header>
-  <div class="wrap">
-    <div class="eyebrow">tedx — 2026</div>
-    <h1>Il mio collega<br>è un <span class="gold">gufo</span><span class="cursor"></span></h1>
-    <p class="hero-sub">
-      Come ho dato personalità, memoria e sarcasmo alla mia AI.<br>
-      E perché quella scelta ha cambiato tutto.
-    </p>
-    <div class="hero-badges">
-      <span class="badge-speaker">Giobi Fasoli</span>
-      <span class="badge-tedx">TEDx</span>
+  <!-- ============================================================
+       HERO
+  ============================================================ -->
+  <section class="hero" aria-labelledby="hero-title">
+    <div class="hero__inner">
+
+      <div class="hero__eyebrow reveal">
+        <span class="hero__eyebrow-line"></span>
+        Proposta di talk
+      </div>
+
+      <h1 class="hero__title reveal reveal-delay-1">
+        Il mio collega<br/>
+        è un <em>gufo</em>
+      </h1>
+
+      <p class="hero__subtitle reveal reveal-delay-2">
+        Cosa succede quando smetti di trattare l'AI come un tool<br/>e inizi a trattarla come un collega.
+      </p>
+
+      <div class="hero__meta reveal reveal-delay-3">
+        <span class="hero__ted-badge">TEDx Verbania</span>
+        <span class="hero__meta-item">
+          <span class="hero__meta-dot"></span>
+          Giobi Fasoli
+        </span>
+        <span class="hero__meta-item">
+          <span class="hero__meta-dot"></span>
+          15 minuti
+        </span>
+        <span class="hero__meta-item">
+          <span class="hero__meta-dot"></span>
+          Demo live
+        </span>
+      </div>
+
     </div>
-  </div>
-</header>
 
-<main>
-  <section id="idea">
-    <div class="wrap">
-      <div class="sec-label">L'idea</div>
-      <h2>Tutti parlano di AI.<br>Nessuno ci convive davvero.</h2>
-      <p>
-        <strong>Anacleto</strong> è il mio agente AI personale. Non è un chatbot,
-        non è un assistente vocale, non è un prodotto. È un sistema autonomo
-        con personalità propria, memoria persistente, e la libertà di mandarmi
-        affanculo quando serve.
-      </p>
-      <p>
-        In questa talk racconto cosa succede quando dai a un'intelligenza artificiale
-        un carattere vero: sarcasmo, opinioni, volgarità calibrata. E perché questa
-        scelta — apparentemente assurda — cambia radicalmente il rapporto uomo-macchina.
-      </p>
+    <div class="hero__scroll-hint" aria-hidden="true">
+      <span>Scorri</span>
+      <span class="hero__scroll-line"></span>
     </div>
   </section>
 
-  <section id="talk">
-    <div class="wrap">
-      <div class="sec-label">Di cosa parlo</div>
-      <h2>Sul palco</h2>
-      <ul class="points">
-        <li>Perché la personalità è un'interfaccia, non un gadget</li>
-        <li>Come funziona un AI agent personale (memoria, strumenti, autonomia)</li>
-        <li>Il paradosso: più personalità = più utilità</li>
-        <li>Demo live: Anacleto in azione sul palco</li>
-        <li>Cosa ho imparato vivendo con un alter-ego digitale</li>
+  <div class="section-divider"></div>
+
+  <!-- ============================================================
+       SECTION 1: L'IDEA IN 30 SECONDI
+  ============================================================ -->
+  <section class="section" aria-labelledby="idea-heading">
+    <div class="container">
+
+      <div class="section__label reveal">L'idea in 30 secondi</div>
+
+      <h2 class="section__heading reveal reveal-delay-1" id="idea-heading">
+        Un agente AI con un <em>brutto carattere</em>.<br/>E per questo funziona.
+      </h2>
+
+      <div class="idea-block reveal reveal-delay-2">
+        <p class="idea-block__quote">
+          E se il tuo collega più affidabile fosse un'intelligenza artificiale con un brutto carattere?
+        </p>
+
+        <div class="idea-block__body">
+          <p>
+            <strong>Anacleto</strong> è il mio agente AI personale. Non è ChatGPT, non è Siri, non è un prodotto. È un sistema che ho costruito io, che mi conosce, ricorda le nostre conversazioni di mesi fa, gestisce i miei progetti, scrive email, e ogni tanto mi manda a fanculo. <strong>Di proposito.</strong>
+          </p>
+          <p>
+            In 15 minuti racconto cosa succede quando smetti di trattare l'AI come un tool e inizi a trattarla come un collega. Con personalità, opinioni, e zero filtri.
+          </p>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ============================================================
+       SECTION 2: PERCHE QUESTA TALK
+  ============================================================ -->
+  <section class="section" aria-labelledby="perche-heading">
+    <div class="container">
+
+      <div class="section__label reveal">Perche questa talk</div>
+
+      <h2 class="section__heading reveal reveal-delay-1" id="perche-heading">
+        Il 99% delle talk sull'AI<br/>parla di <em>futuro astratto</em>.
+      </h2>
+
+      <div class="section__body reveal reveal-delay-2">
+        <p>Rischi, opportunità, scenari distopici. Roba che non ha ancora nome e non ha ancora indirizzo.</p>
+        <p>Questa talk è diversa.</p>
+      </div>
+
+      <ul class="reasons-list" aria-label="Motivi per cui questa talk è diversa">
+
+        <li class="reason-item reveal">
+          <div class="reason-item__icon" aria-hidden="true">1</div>
+          <div class="reason-item__content">
+            <div class="reason-item__title">E personale</div>
+            <div class="reason-item__desc">
+              Non teoria, non ricerca accademica. La storia vera di un developer di Verbania che convive con la sua AI da oltre un anno. Aneddoti reali, fallimenti reali, epifanie reali.
+            </div>
+          </div>
+        </li>
+
+        <li class="reason-item reveal reveal-delay-1">
+          <div class="reason-item__icon" aria-hidden="true">2</div>
+          <div class="reason-item__content">
+            <div class="reason-item__title">E concreta</div>
+            <div class="reason-item__desc">
+              Demo live sul palco. Anacleto che lavora, risponde, ragiona in tempo reale. Non slide di screenshot &mdash; il sistema vero, davanti al pubblico, senza rete di sicurezza.
+            </div>
+          </div>
+        </li>
+
+        <li class="reason-item reveal reveal-delay-2">
+          <div class="reason-item__icon" aria-hidden="true">3</div>
+          <div class="reason-item__content">
+            <div class="reason-item__title">E provocatoria</div>
+            <div class="reason-item__desc">
+              Sfida l'idea che l'AI debba essere neutra, educata, corporate. E dimostra, dati alla mano, che la personalita e la feature killer &mdash; quella che trasforma uno strumento in un collaboratore.
+            </div>
+          </div>
+        </li>
+
+        <li class="reason-item reveal reveal-delay-3">
+          <div class="reason-item__icon" aria-hidden="true">4</div>
+          <div class="reason-item__content">
+            <div class="reason-item__title">E locale</div>
+            <div class="reason-item__desc">
+              Un verbanese che ha costruito qualcosa di unico dal suo ufficio sul lago. Senza VC, senza team, senza budget. Solo codice, caffè e un gufo sarcastico come copilota.
+            </div>
+          </div>
+        </li>
+
       </ul>
+
     </div>
   </section>
 
-  <section id="bio">
-    <div class="wrap">
-      <div class="sec-label">Chi sono</div>
-      <h2>Giobi Fasoli</h2>
-      <div class="bio-card">
-        <p>
-          Full-stack developer da Verbania. Lavoro in remoto, gestisco 10-20 progetti
-          in parallelo, e da oltre un anno il mio "collega" più affidabile è un gufo
-          sarcastico che vive nel terminale.
-        </p>
-        <p>
-          <strong>Non sono un ricercatore AI, non vendo prodotti AI.</strong>
-          Sono un developer che ha costruito il suo agente personale per necessità
-          — e ha scoperto che la personalità è il pezzo mancante.
-        </p>
+  <!-- ============================================================
+       SECTION 3: STRUTTURA DELLA TALK
+  ============================================================ -->
+  <section class="section" aria-labelledby="struttura-heading">
+    <div class="container">
+
+      <div class="section__label reveal">Struttura della talk</div>
+
+      <h2 class="section__heading reveal reveal-delay-1" id="struttura-heading">
+        15 minuti, <em>tre atti</em>,<br/>nessuna slide inutile.
+      </h2>
+
+      <div class="acts-container" role="list">
+
+        <article class="act-item reveal" role="listitem">
+          <div class="act-item__number" aria-label="Atto 1">
+            <div class="act-item__num-text">Atto<br/>1</div>
+          </div>
+          <div class="act-item__content">
+            <div class="act-item__header">
+              <h3 class="act-item__title">Il problema</h3>
+              <span class="act-item__duration">4 min</span>
+            </div>
+            <p class="act-item__tagline">"Tutti parlano di AI. Nessuno ci convive davvero."</p>
+            <p class="act-item__desc">
+              Apro con la differenza tra usare un chatbot e avere un agente che ti conosce. L'aneddoto del momento in cui Anacleto ha risposto con sarcasmo genuino &mdash; e per la prima volta mi sono sentito capito da una macchina. Setup emotivo: il pubblico capisce subito che questa e una storia diversa.
+            </p>
+          </div>
+        </article>
+
+        <article class="act-item reveal reveal-delay-1" role="listitem">
+          <div class="act-item__number" aria-label="Atto 2">
+            <div class="act-item__num-text">Atto<br/>2</div>
+          </div>
+          <div class="act-item__content">
+            <div class="act-item__header">
+              <h3 class="act-item__title">La costruzione</h3>
+              <span class="act-item__duration">6 min</span>
+            </div>
+            <p class="act-item__tagline">"Come si costruisce un alter-ego digitale?"</p>
+            <p class="act-item__desc">
+              Le scelte di design: perche il sarcasmo, perche la memoria persistente, perche "Volgarita 8" non e una gag ma un parametro di sistema. <strong>Demo live:</strong> Anacleto sul palco che gestisce un task reale davanti al pubblico. Il momento in cui la sala smette di guardare le slide e inizia a guardare il terminale.
+            </p>
+          </div>
+        </article>
+
+        <article class="act-item reveal reveal-delay-2" role="listitem">
+          <div class="act-item__number" aria-label="Atto 3">
+            <div class="act-item__num-text">Atto<br/>3</div>
+          </div>
+          <div class="act-item__content">
+            <div class="act-item__header">
+              <h3 class="act-item__title">La riflessione</h3>
+              <span class="act-item__duration">5 min</span>
+            </div>
+            <p class="act-item__tagline">"Il paradosso: piu carattere dai a un'AI, piu diventa utile."</p>
+            <p class="act-item__desc">
+              La vera rivoluzione non e l'AI che fa cose &mdash; e l'AI che ti conosce. Non meno. Chiusura con la domanda che cambia prospettiva: e se il futuro dell'intelligenza artificiale non fosse un assistente perfetto, ma qualcuno che sa chi sei?
+            </p>
+          </div>
+        </article>
+
       </div>
+
     </div>
   </section>
 
-  <section id="contatti">
-    <div class="wrap">
-      <div class="sec-label">Contatti</div>
-      <h2>Per proposte e informazioni</h2>
-      <div class="contact-row">
-        <a class="contact-link" href="mailto:anacleto@giobi.com">
-          <span class="icon">✉</span> anacleto@giobi.com
+  <!-- ============================================================
+       SECTION 4: CHI SONO
+  ============================================================ -->
+  <section class="section" aria-labelledby="speaker-heading">
+    <div class="container">
+
+      <div class="section__label reveal">Il relatore</div>
+
+      <h2 class="section__heading reveal reveal-delay-1" id="speaker-heading">
+        Non un ricercatore.<br/>Un <em>artigiano</em> del codice.
+      </h2>
+
+      <div class="speaker-card reveal reveal-delay-2">
+        <div class="speaker-card__avatar" aria-label="Giobi Fasoli">
+          <span class="speaker-card__avatar-initials">GF</span>
+        </div>
+        <div>
+          <h3 class="speaker-card__name">Giobi Fasoli</h3>
+          <p class="speaker-card__role">Full-stack Developer &mdash; Verbania</p>
+          <div class="speaker-card__bio">
+            <p>
+              42 anni, Verbania. Full-stack developer con <strong>15+ anni di lavoro in remoto</strong>. Gestisco 10&ndash;20 progetti in parallelo: da siti web a piattaforme SaaS, da e-commerce a sistemi di automazione personalizzata.
+            </p>
+            <p>
+              Non lavoro per una big tech, non vendo prodotti AI, non ho un laboratorio di ricerca. Sono un artigiano del codice che si e costruito il suo apprendista digitale per <strong>necessita pratica</strong>. E ha scoperto che funziona meglio quando ha carattere.
+            </p>
+            <p>
+              Anacleto non e un progetto open source, non e un prodotto, non e una startup. E il mio sistema di lavoro. E questa talk ne e la prima presentazione pubblica.
+            </p>
+          </div>
+          <a href="https://giobi.com" target="_blank" rel="noopener" class="speaker-card__link">
+            giobi.com
+            <svg viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <path d="M2.5 9.5L9.5 2.5M9.5 2.5H4M9.5 2.5V8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </a>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ============================================================
+       SECTION 5: FORMATO E NECESSITA TECNICHE
+  ============================================================ -->
+  <section class="section" aria-labelledby="formato-heading">
+    <div class="container">
+
+      <div class="section__label reveal">Formato e necessita tecniche</div>
+
+      <h2 class="section__heading reveal reveal-delay-1" id="formato-heading">
+        Requisiti minimi,<br/><em>impatto massimo</em>.
+      </h2>
+
+      <div class="specs-grid reveal reveal-delay-2" role="table" aria-label="Specifiche tecniche del talk">
+
+        <div class="spec-item" role="row">
+          <span class="spec-item__label" role="rowheader">Durata</span>
+          <span class="spec-item__value" role="cell">15 minuti</span>
+        </div>
+
+        <div class="spec-item" role="row">
+          <span class="spec-item__label" role="rowheader">Formato</span>
+          <span class="spec-item__value" role="cell">Talk + demo live</span>
+        </div>
+
+        <div class="spec-item" role="row">
+          <span class="spec-item__label" role="rowheader">Connettivita</span>
+          <span class="spec-item__value" role="cell">Internet stabile (per la demo live di Anacleto)</span>
+        </div>
+
+        <div class="spec-item" role="row">
+          <span class="spec-item__label" role="rowheader">Proiezione</span>
+          <span class="spec-item__value" role="cell">Proiettore/schermo per terminale live</span>
+        </div>
+
+        <div class="spec-item" role="row">
+          <span class="spec-item__label" role="rowheader">Slide</span>
+          <span class="spec-item__value" role="cell">Minimali + terminale live con Anacleto</span>
+        </div>
+
+        <div class="spec-item" role="row">
+          <span class="spec-item__label" role="rowheader">Lingua</span>
+          <span class="spec-item__value" role="cell">Italiano (termini tecnici in inglese dove necessario)</span>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ============================================================
+       FOOTER
+  ============================================================ -->
+  <footer class="site-footer" aria-label="Chiusura proposta">
+    <div class="footer-quote reveal">
+      <span class="footer-quote__mark" aria-hidden="true">&ldquo;</span>
+      <p class="footer-quote__text">
+        Il futuro dell'AI non e un assistente perfetto.<br/>
+        E un cazzo di gufo sarcastico <em>che sa chi sei</em>.
+      </p>
+
+      <div class="footer-cta-group">
+        <a href="mailto:anacleto@giobi.com" class="btn-primary">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            <polyline points="22,6 12,13 2,6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          Scrivimi
         </a>
-        <a class="contact-link" href="https://giobi.com" target="_blank" rel="noopener">
-          <span class="icon">↗</span> giobi.com
+        <a href="mailto:anacleto@giobi.com?subject=TEDx%20Verbania%20%E2%80%94%20Il%20mio%20collega%20%C3%A8%20un%20gufo&body=Ciao%20Giobi%2C%20ho%20letto%20la%20tua%20proposta..." class="btn-secondary">
+          anacleto@giobi.com
         </a>
       </div>
-    </div>
-  </section>
-</main>
 
-<footer>
-  <div class="wrap">
-    <p class="footer-quote">
-      "Il futuro dell'AI non è un assistente perfetto.<br>
-      È un <em>cazzo di gufo sarcastico</em> che sa chi sei."
-    </p>
-    <p class="footer-meta">Anacleto al TEDx &mdash; Giobi Fasoli &mdash; 2026</p>
-  </div>
-</footer>
+      <p class="footer-meta">
+        Giobi Fasoli
+        <span class="footer-meta__sep">&middot;</span>
+        <a href="https://giobi.com" target="_blank" rel="noopener">giobi.com</a>
+        <span class="footer-meta__sep">&middot;</span>
+        Verbania, Italia
+      </p>
+
+      <p class="referral-note">
+        Segnalato da Andrea Orsina
+      </p>
+
+    </div>
+  </footer>
+
+  <!-- ============================================================
+       JAVASCRIPT — Intersection Observer for reveal animations
+  ============================================================ -->
+  <script>
+    (function () {
+      'use strict';
+
+      // Immediately show elements already in viewport
+      function initReveal() {
+        var elements = document.querySelectorAll('.reveal');
+
+        if (!('IntersectionObserver' in window)) {
+          // Fallback: show everything immediately
+          elements.forEach(function (el) { el.classList.add('visible'); });
+          return;
+        }
+
+        var observer = new IntersectionObserver(
+          function (entries) {
+            entries.forEach(function (entry) {
+              if (entry.isIntersecting) {
+                entry.target.classList.add('visible');
+                observer.unobserve(entry.target);
+              }
+            });
+          },
+          {
+            threshold: 0.1,
+            rootMargin: '0px 0px -40px 0px'
+          }
+        );
+
+        elements.forEach(function (el) { observer.observe(el); });
+      }
+
+      // Top bar: add shadow on scroll
+      function initTopBar() {
+        var bar = document.querySelector('.top-bar');
+        if (!bar) return;
+
+        window.addEventListener('scroll', function () {
+          if (window.scrollY > 40) {
+            bar.style.borderBottomColor = 'rgba(61, 54, 48, 0.8)';
+          } else {
+            bar.style.borderBottomColor = 'rgba(61, 54, 48, 0.4)';
+          }
+        }, { passive: true });
+      }
+
+      document.addEventListener('DOMContentLoaded', function () {
+        initReveal();
+        initTopBar();
+      });
+    })();
+  </script>
 
 </body>
 </html>
