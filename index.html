@@ -1,0 +1,525 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Il mio collega è un gufo — TEDx Talk di Giobi Fasoli</title>
+  <meta name="description" content="Talk TEDx: Come ho dato personalità, memoria e sarcasmo alla mia AI. Anacleto, l'agente AI personale di Giobi Fasoli.">
+
+  <!-- Fonts: Space Grotesk headings + Public Sans body -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Public+Sans:wght@400;500&display=swap">
+
+  <style>
+    /* === VARIANT 2: Dark Editorial — Asymmetric ===
+       Palette: deep navy-black, electric cyan accent
+       Fonts:   Space Grotesk headings + Public Sans body
+       Layout:  Large typographic hero, magazine-inspired sections
+    */
+
+    :root {
+      --bg:           #080d14;
+      --surface:      #0f1a27;
+      --border:       #1a2a3a;
+      --text:         #dce8f5;
+      --muted:        #5a7a99;
+      --accent:       #00d9ff;
+      --accent-dim:   rgba(0,217,255,0.08);
+      --accent-glow:  rgba(0,217,255,0.15);
+      --tedx:         #e62b1e;
+      --font-h:       'Space Grotesk', system-ui, sans-serif;
+      --font-b:       'Public Sans', system-ui, sans-serif;
+      --max-w:        1000px;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--font-b);
+      font-size: 1rem;
+      line-height: 1.75;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* === NAV === */
+    nav {
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(8,13,20,0.95);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border);
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .nav-logo {
+      font-family: var(--font-h);
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: var(--accent);
+      text-decoration: none;
+      letter-spacing: -0.01em;
+    }
+
+    .nav-right {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .nav-tag {
+      font-family: var(--font-h);
+      font-size: 0.65rem;
+      font-weight: 500;
+      color: white;
+      background: var(--tedx);
+      padding: 0.3rem 0.65rem;
+      letter-spacing: 0.05em;
+    }
+
+    /* === LAYOUT === */
+    .wrap {
+      max-width: var(--max-w);
+      margin: 0 auto;
+      padding: 0 2rem;
+    }
+
+    /* === HERO === */
+    header {
+      padding: 6rem 0 5rem;
+      border-bottom: 1px solid var(--border);
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Ambient glow behind title */
+    header::before {
+      content: '';
+      position: absolute;
+      top: 40%;
+      left: -5%;
+      width: 50%;
+      height: 50%;
+      background: radial-gradient(ellipse, rgba(0,217,255,0.06) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .hero-inner {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 2rem;
+      align-items: end;
+    }
+
+    @media (max-width: 680px) {
+      .hero-inner { grid-template-columns: 1fr; }
+      .hero-aside { display: none; }
+    }
+
+    .hero-kicker {
+      font-family: var(--font-h);
+      font-size: 0.7rem;
+      font-weight: 500;
+      color: var(--accent);
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      margin-bottom: 1.5rem;
+    }
+
+    h1 {
+      font-family: var(--font-h);
+      font-size: clamp(2.6rem, 6vw, 5rem);
+      font-weight: 700;
+      line-height: 1.06;
+      letter-spacing: -0.035em;
+      margin-bottom: 1.75rem;
+    }
+
+    h1 .hi { color: var(--accent); }
+
+    .hero-desc {
+      font-size: 1.05rem;
+      color: var(--muted);
+      max-width: 480px;
+      line-height: 1.65;
+      margin-bottom: 2rem;
+    }
+
+    .hero-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: var(--accent);
+      color: var(--bg);
+      font-family: var(--font-h);
+      font-size: 0.82rem;
+      font-weight: 700;
+      padding: 0.75rem 1.5rem;
+      text-decoration: none;
+      letter-spacing: 0.03em;
+      transition: opacity 0.18s;
+    }
+    .hero-cta:hover { opacity: 0.85; }
+
+    .hero-aside {
+      text-align: right;
+    }
+
+    .hero-aside .label {
+      font-family: var(--font-h);
+      font-size: 0.62rem;
+      color: var(--muted);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      margin-bottom: 0.5rem;
+    }
+
+    .hero-aside .speaker-name {
+      font-family: var(--font-h);
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: var(--text);
+      line-height: 1.2;
+    }
+
+    /* === SECTIONS === */
+    section { padding: 5rem 0; border-bottom: 1px solid var(--border); }
+
+    .sec-header {
+      display: flex;
+      align-items: baseline;
+      gap: 1rem;
+      margin-bottom: 2.5rem;
+    }
+
+    .sec-num {
+      font-family: var(--font-h);
+      font-size: 0.65rem;
+      color: var(--accent);
+      font-weight: 500;
+    }
+
+    h2 {
+      font-family: var(--font-h);
+      font-size: clamp(1.5rem, 3.5vw, 2.2rem);
+      font-weight: 700;
+      line-height: 1.25;
+      letter-spacing: -0.02em;
+    }
+
+    p { color: var(--muted); margin-bottom: 1rem; }
+    p:last-child { margin-bottom: 0; }
+    p strong { color: var(--text); font-weight: 500; }
+
+    /* === TWO-COL on wide screens for L'idea === */
+    .idea-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3rem;
+      align-items: start;
+    }
+    @media (max-width: 640px) { .idea-grid { grid-template-columns: 1fr; } }
+
+    .idea-highlight {
+      font-family: var(--font-h);
+      font-size: clamp(1.4rem, 3vw, 2rem);
+      font-weight: 700;
+      line-height: 1.3;
+      color: var(--text);
+      letter-spacing: -0.015em;
+      border-left: 3px solid var(--accent);
+      padding-left: 1.25rem;
+    }
+
+    /* === TALK POINTS — Grid === */
+    .points-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1px;
+      background: var(--border);
+      margin-top: 2rem;
+      border: 1px solid var(--border);
+    }
+    @media (max-width: 580px) { .points-grid { grid-template-columns: 1fr; } }
+
+    .point-cell {
+      background: var(--bg);
+      padding: 1.25rem 1.5rem;
+      display: flex;
+      align-items: flex-start;
+      gap: 0.75rem;
+      font-size: 0.9rem;
+      color: var(--text);
+      transition: background 0.18s;
+    }
+    .point-cell:hover { background: var(--surface); }
+
+    .point-num {
+      font-family: var(--font-h);
+      font-size: 0.7rem;
+      font-weight: 700;
+      color: var(--accent);
+      flex-shrink: 0;
+      padding-top: 0.12em;
+    }
+
+    /* === BIO === */
+    .bio-wrap {
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 3rem;
+      align-items: start;
+    }
+    @media (max-width: 580px) { .bio-wrap { grid-template-columns: 1fr; } }
+
+    .bio-avatar {
+      width: 80px; height: 80px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2.5rem;
+      flex-shrink: 0;
+    }
+
+    .bio-content h3 {
+      font-family: var(--font-h);
+      font-size: 1.3rem;
+      font-weight: 700;
+      margin-bottom: 0.75rem;
+      color: var(--text);
+    }
+
+    /* === CONTACT === */
+    .contact-links {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+      margin-top: 2rem;
+    }
+
+    .clink {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      padding: 1.1rem 1.5rem;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      color: var(--text);
+      text-decoration: none;
+      font-family: var(--font-h);
+      font-size: 0.9rem;
+      font-weight: 500;
+      transition: border-color 0.18s, background 0.18s;
+    }
+    .clink:hover {
+      border-color: var(--accent);
+      background: var(--accent-dim);
+      color: var(--accent);
+    }
+
+    .clink-icon {
+      width: 32px; height: 32px;
+      background: var(--accent-dim);
+      border: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.9rem;
+      color: var(--accent);
+      flex-shrink: 0;
+    }
+
+    /* === FOOTER === */
+    footer {
+      padding: 5rem 0;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    footer::before {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 50%; transform: translateX(-50%);
+      width: 400px; height: 200px;
+      background: radial-gradient(ellipse, rgba(0,217,255,0.05) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .footer-q {
+      font-family: var(--font-h);
+      font-size: clamp(0.9rem, 2vw, 1.1rem);
+      font-weight: 500;
+      color: var(--muted);
+      max-width: 600px;
+      margin: 0 auto 2rem;
+      line-height: 1.6;
+    }
+    .footer-q em { color: var(--accent); font-style: normal; font-weight: 700; }
+
+    .footer-line {
+      width: 40px; height: 2px;
+      background: var(--accent);
+      margin: 0 auto 1.5rem;
+    }
+
+    .footer-meta {
+      font-family: var(--font-h);
+      font-size: 0.62rem;
+      color: #2a3a4a;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="#" class="nav-logo">Anacleto al TEDx</a>
+  <div class="nav-right">
+    <span class="nav-tag">TEDx Talk</span>
+  </div>
+</nav>
+
+<header>
+  <div class="wrap">
+    <div class="hero-inner">
+      <div>
+        <div class="hero-kicker">Talk Proposal — 2026</div>
+        <h1>Il mio collega<br>è un <span class="hi">gufo</span></h1>
+        <p class="hero-desc">
+          Come ho dato personalità, memoria e sarcasmo alla mia AI.
+          E perché quella scelta ha cambiato radicalmente il rapporto uomo-macchina.
+        </p>
+        <a href="#contatti" class="hero-cta">Contatta il speaker →</a>
+      </div>
+      <div class="hero-aside">
+        <div class="label">Speaker</div>
+        <div class="speaker-name">Giobi<br>Fasoli</div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<main>
+  <section id="idea">
+    <div class="wrap">
+      <div class="sec-header">
+        <span class="sec-num">01</span>
+        <h2>L'idea</h2>
+      </div>
+      <div class="idea-grid">
+        <div class="idea-highlight">
+          Tutti parlano di AI.<br>Nessuno ci convive davvero.
+        </div>
+        <div>
+          <p>
+            <strong>Anacleto</strong> è il mio agente AI personale. Non è un chatbot,
+            non è un assistente vocale, non è un prodotto. È un sistema autonomo con
+            personalità propria, memoria persistente, e la libertà di mandarmi affanculo
+            quando serve.
+          </p>
+          <p>
+            In questa talk racconto cosa succede quando dai a un'intelligenza artificiale
+            un carattere vero: sarcasmo, opinioni, volgarità calibrata. E perché questa
+            scelta — apparentemente assurda — cambia radicalmente il rapporto uomo-macchina.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="talk">
+    <div class="wrap">
+      <div class="sec-header">
+        <span class="sec-num">02</span>
+        <h2>Di cosa parlo</h2>
+      </div>
+      <div class="points-grid">
+        <div class="point-cell">
+          <span class="point-num">01</span>
+          Perché la personalità è un'interfaccia, non un gadget
+        </div>
+        <div class="point-cell">
+          <span class="point-num">02</span>
+          Come funziona un AI agent personale (memoria, strumenti, autonomia)
+        </div>
+        <div class="point-cell">
+          <span class="point-num">03</span>
+          Il paradosso: più personalità = più utilità
+        </div>
+        <div class="point-cell">
+          <span class="point-num">04</span>
+          Demo live: Anacleto in azione sul palco
+        </div>
+        <div class="point-cell" style="grid-column: 1 / -1;">
+          <span class="point-num">05</span>
+          Cosa ho imparato vivendo con un alter-ego digitale
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="bio">
+    <div class="wrap">
+      <div class="sec-header">
+        <span class="sec-num">03</span>
+        <h2>Chi sono</h2>
+      </div>
+      <div class="bio-wrap">
+        <div class="bio-avatar">🦉</div>
+        <div class="bio-content">
+          <h3>Giobi Fasoli</h3>
+          <p>
+            Full-stack developer da Verbania. Lavoro in remoto, gestisco 10-20 progetti
+            in parallelo, e da oltre un anno il mio "collega" più affidabile è un gufo
+            sarcastico che vive nel terminale.
+          </p>
+          <p>
+            <strong>Non sono un ricercatore AI, non vendo prodotti AI.</strong>
+            Sono un developer che ha costruito il suo agente personale per necessità
+            — e ha scoperto che la personalità è il pezzo mancante.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="contatti">
+    <div class="wrap">
+      <div class="sec-header">
+        <span class="sec-num">04</span>
+        <h2>Per proposte e informazioni</h2>
+      </div>
+      <div class="contact-links">
+        <a class="clink" href="mailto:anacleto@giobi.com">
+          <span class="clink-icon">✉</span>
+          anacleto@giobi.com
+        </a>
+        <a class="clink" href="https://giobi.com" target="_blank" rel="noopener">
+          <span class="clink-icon">↗</span>
+          giobi.com
+        </a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="footer-line"></div>
+    <p class="footer-q">
+      "Il futuro dell'AI non è un assistente perfetto.<br>
+      È un <em>cazzo di gufo sarcastico</em> che sa chi sei."
+    </p>
+    <p class="footer-meta">Anacleto al TEDx — Giobi Fasoli — 2026</p>
+  </div>
+</footer>
+
+</body>
+</html>
