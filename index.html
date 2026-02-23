@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Il mio collega è un gufo — TEDx Talk di Giobi Fasoli</title>
+  <meta name="description" content="Talk TEDx: Come ho dato personalità, memoria e sarcasmo alla mia AI. Anacleto, l'agente AI personale di Giobi Fasoli.">
+
+  <!-- Fonts: Playfair Display headings + Source Sans 3 body -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=Source+Sans+3:wght@400;600&display=swap">
+
+  <style>
+    /* === VARIANT 3: Dark Editorial Magazine ===
+       Palette: near-black with warm charcoal, punchy red-orange accent (TED energy)
+       Fonts:   Playfair Display (editorial gravitas) + Source Sans 3 (readable body)
+       Layout:  Full-bleed hero with large quote, magazine-style reading flow
+    */
+
+    :root {
+      --bg:         #111010;
+      --surface:    #1a1818;
+      --border:     #2c2929;
+      --text:       #f0ece8;
+      --muted:      #8a8480;
+      --accent:     #ff4d2e;
+      --accent-dim: rgba(255,77,46,0.10);
+      --warm:       #ffd4c8;
+      --font-h:     'Playfair Display', Georgia, serif;
+      --font-b:     'Source Sans 3', system-ui, sans-serif;
+      --max-w:      820px;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--font-b);
+      font-size: 1.05rem;
+      line-height: 1.8;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* === NAV === */
+    nav {
+      position: sticky; top: 0; z-index: 100;
+      background: var(--bg);
+      border-bottom: 1px solid var(--border);
+      padding: 1.1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .nav-logo {
+      font-family: var(--font-h);
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--text);
+      text-decoration: none;
+      letter-spacing: -0.01em;
+    }
+
+    .nav-logo span { color: var(--accent); }
+
+    .nav-tedx {
+      font-family: var(--font-b);
+      font-size: 0.7rem;
+      font-weight: 600;
+      background: var(--accent);
+      color: white;
+      padding: 0.3rem 0.7rem;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+
+    /* === LAYOUT === */
+    .wrap {
+      max-width: var(--max-w);
+      margin: 0 auto;
+      padding: 0 2rem;
+    }
+
+    /* === HERO — full editorial === */
+    header {
+      padding-top: 5rem;
+      padding-bottom: 0;
+    }
+
+    .hero-tag {
+      font-family: var(--font-b);
+      font-size: 0.72rem;
+      font-weight: 600;
+      color: var(--accent);
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      margin-bottom: 2rem;
+    }
+
+    h1 {
+      font-family: var(--font-h);
+      font-size: clamp(2.8rem, 6.5vw, 5.5rem);
+      font-weight: 700;
+      line-height: 1.08;
+      letter-spacing: -0.02em;
+      color: var(--text);
+      margin-bottom: 2rem;
+    }
+
+    h1 em {
+      font-style: italic;
+      color: var(--accent);
+    }
+
+    .hero-rule {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+      margin-bottom: 2rem;
+    }
+
+    .hero-rule::before,
+    .hero-rule::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--border);
+    }
+
+    .hero-speaker {
+      font-family: var(--font-b);
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--muted);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+
+    .hero-sub {
+      font-family: var(--font-h);
+      font-style: italic;
+      font-size: clamp(1.05rem, 2.2vw, 1.3rem);
+      color: var(--muted);
+      line-height: 1.65;
+      border-left: 3px solid var(--accent);
+      padding-left: 1.5rem;
+      margin-bottom: 0;
+    }
+
+    /* hero bottom bar */
+    .hero-bar {
+      margin-top: 3.5rem;
+      background: var(--surface);
+      border-top: 3px solid var(--accent);
+      border-bottom: 1px solid var(--border);
+      padding: 1.2rem 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+    }
+
+    .hero-bar-item {
+      font-family: var(--font-b);
+      font-size: 0.78rem;
+      color: var(--muted);
+      letter-spacing: 0.06em;
+    }
+
+    .hero-bar-item strong {
+      color: var(--text);
+    }
+
+    /* === SECTIONS === */
+    section {
+      padding: 4.5rem 0;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .sec-eyebrow {
+      font-family: var(--font-b);
+      font-size: 0.68rem;
+      font-weight: 600;
+      color: var(--accent);
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      margin-bottom: 1.25rem;
+    }
+
+    h2 {
+      font-family: var(--font-h);
+      font-size: clamp(1.6rem, 3.5vw, 2.4rem);
+      font-weight: 700;
+      line-height: 1.2;
+      letter-spacing: -0.015em;
+      margin-bottom: 1.5rem;
+    }
+
+    p { color: var(--muted); margin-bottom: 1rem; }
+    p:last-child { margin-bottom: 0; }
+    p strong { color: var(--text); font-weight: 600; }
+
+    /* === PULL QUOTE — L'idea === */
+    .pull-quote {
+      font-family: var(--font-h);
+      font-style: italic;
+      font-size: clamp(1.3rem, 3vw, 1.8rem);
+      line-height: 1.45;
+      color: var(--text);
+      border-left: 4px solid var(--accent);
+      padding: 1rem 1.5rem;
+      margin: 2rem 0;
+      background: var(--surface);
+    }
+
+    /* === TALK POINTS — numbered editorial list === */
+    .points {
+      list-style: none;
+      counter-reset: pts;
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+
+    .points li {
+      counter-increment: pts;
+      display: grid;
+      grid-template-columns: 2.5rem 1fr;
+      gap: 1rem;
+      align-items: center;
+      padding: 1rem 0;
+      border-bottom: 1px solid var(--border);
+      font-size: 0.98rem;
+      color: var(--text);
+    }
+    .points li:last-child { border-bottom: none; }
+
+    .points li::before {
+      content: counter(pts, decimal-leading-zero);
+      font-family: var(--font-h);
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--accent);
+      opacity: 0.7;
+    }
+
+    /* === BIO === */
+    .bio-text {
+      font-size: 1.05rem;
+    }
+
+    .bio-name {
+      font-family: var(--font-h);
+      font-size: 2rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      color: var(--text);
+      margin-bottom: 1.25rem;
+    }
+
+    /* === CONTACT === */
+    .contact-block {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-top: 3px solid var(--accent);
+      padding: 2rem;
+      margin-top: 2rem;
+    }
+
+    .contact-block h3 {
+      font-family: var(--font-h);
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 1.25rem;
+    }
+
+    .contact-item {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      padding: 0.75rem 0;
+      border-bottom: 1px solid var(--border);
+      font-family: var(--font-b);
+      font-size: 0.92rem;
+      color: var(--muted);
+      text-decoration: none;
+    }
+    .contact-item:last-child { border-bottom: none; padding-bottom: 0; }
+    .contact-item:hover { color: var(--accent); }
+
+    .contact-item span.ic { color: var(--accent); font-size: 1rem; }
+
+    /* === FOOTER === */
+    footer {
+      padding: 5rem 0;
+    }
+
+    .footer-quote-wrap {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      padding: 3rem;
+      text-align: center;
+    }
+
+    .footer-big-q {
+      font-family: var(--font-h);
+      font-style: italic;
+      font-size: clamp(1rem, 2.5vw, 1.4rem);
+      line-height: 1.6;
+      color: var(--text);
+      margin-bottom: 1.5rem;
+    }
+    .footer-big-q em { color: var(--accent); font-style: normal; }
+
+    .footer-sig {
+      font-family: var(--font-b);
+      font-size: 0.7rem;
+      color: var(--muted);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="#" class="nav-logo">Anacleto<span>.</span></a>
+  <span class="nav-tedx">TEDx Talk</span>
+</nav>
+
+<header>
+  <div class="wrap">
+    <div class="hero-tag">Talk Proposal — 2026</div>
+    <h1>Il mio collega<br>è un <em>gufo</em></h1>
+    <div class="hero-rule">
+      <span class="hero-speaker">Speaker: Giobi Fasoli</span>
+    </div>
+    <p class="hero-sub">
+      Come ho dato personalità, memoria e sarcasmo alla mia AI.<br>
+      E perché quella scelta ha cambiato tutto.
+    </p>
+  </div>
+  <div class="hero-bar">
+    <span class="hero-bar-item"><strong>Talk:</strong> Anacleto al TEDx</span>
+    <span class="hero-bar-item"><strong>Speaker:</strong> Giobi Fasoli</span>
+    <span class="hero-bar-item"><strong>Formato:</strong> Talk + Demo live</span>
+    <span class="hero-bar-item"><strong>Contatto:</strong> anacleto@giobi.com</span>
+  </div>
+</header>
+
+<main>
+  <section id="idea">
+    <div class="wrap">
+      <div class="sec-eyebrow">L'idea</div>
+      <h2>Tutti parlano di AI.<br>Nessuno ci convive davvero.</h2>
+      <blockquote class="pull-quote">
+        Anacleto non è un chatbot. È un sistema autonomo con personalità propria,
+        memoria persistente, e la libertà di mandarmi affanculo quando serve.
+      </blockquote>
+      <p>
+        In questa talk racconto cosa succede quando dai a un'intelligenza artificiale
+        un carattere vero: sarcasmo, opinioni, volgarità calibrata. E perché questa
+        scelta — apparentemente assurda — cambia radicalmente il rapporto uomo-macchina.
+      </p>
+    </div>
+  </section>
+
+  <section id="talk">
+    <div class="wrap">
+      <div class="sec-eyebrow">Di cosa parlo</div>
+      <h2>Sul palco</h2>
+      <ol class="points">
+        <li>Perché la personalità è un'interfaccia, non un gadget</li>
+        <li>Come funziona un AI agent personale (memoria, strumenti, autonomia)</li>
+        <li>Il paradosso: più personalità = più utilità</li>
+        <li>Demo live: Anacleto in azione sul palco</li>
+        <li>Cosa ho imparato vivendo con un alter-ego digitale</li>
+      </ol>
+    </div>
+  </section>
+
+  <section id="bio">
+    <div class="wrap">
+      <div class="sec-eyebrow">Chi sono</div>
+      <div class="bio-name">Giobi Fasoli</div>
+      <div class="bio-text">
+        <p>
+          Full-stack developer da Verbania. Lavoro in remoto, gestisco 10-20 progetti
+          in parallelo, e da oltre un anno il mio "collega" più affidabile è un gufo
+          sarcastico che vive nel terminale.
+        </p>
+        <p>
+          <strong>Non sono un ricercatore AI, non vendo prodotti AI.</strong>
+          Sono un developer che ha costruito il suo agente personale per necessità
+          — e ha scoperto che la personalità è il pezzo mancante.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section id="contatti">
+    <div class="wrap">
+      <div class="sec-eyebrow">Contatti</div>
+      <h2>Per proposte e informazioni</h2>
+      <div class="contact-block">
+        <a class="contact-item" href="mailto:anacleto@giobi.com">
+          <span class="ic">✉</span> anacleto@giobi.com
+        </a>
+        <a class="contact-item" href="https://giobi.com" target="_blank" rel="noopener">
+          <span class="ic">↗</span> giobi.com
+        </a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="footer-quote-wrap">
+      <p class="footer-big-q">
+        "Il futuro dell'AI non è un assistente perfetto.<br>
+        È un <em>cazzo di gufo sarcastico</em> che sa chi sei."
+      </p>
+      <p class="footer-sig">Anacleto al TEDx &mdash; Giobi Fasoli &mdash; 2026</p>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
